@@ -74,7 +74,7 @@ void CNF::readCNF(const std::string& filename) {
 CNF::CNF( const std::unordered_set<sptr<Clause>, UVecHash, UvecEqual>& _clauses )
 {
   clauses = _clauses;
-  if (verbosity > 0) {
+  if (verbosity > 1) {
     std::clog << "*** Creating first graph..." << std::endl;
   }
   graph = make_shared<Graph>(clauses);
@@ -84,7 +84,7 @@ CNF::CNF( const std::unordered_set<sptr<Clause>, UVecHash, UvecEqual>& _clauses 
   }
 
   group = make_shared<Group>();
-  if (verbosity > 0) {
+  if (verbosity > 1) {
     std::clog << "*** Detecting symmetry group..." << std::endl;
   }
   std::vector<sptr<Permutation> > symgens;
