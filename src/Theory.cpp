@@ -13,7 +13,7 @@
 
 using namespace std;
 
-void CNF::readCNF(std::string& filename) {
+void CNF::readCNF(const std::string& filename) {
   if (verbosity > 0) {
     std::clog << "*** Reading CNF: " << filename << std::endl;
   }
@@ -71,7 +71,30 @@ void CNF::readCNF(std::string& filename) {
   }
 }
 
-CNF::CNF(std::string& filename) {
+CNF::CNF( const std::unordered_set<sptr<Clause>, UVecHash, UvecEqual>& _clauses )
+{
+  clauses = _clauses;
+  if (verbosity > 0) {
+    std::clog << "*** Creating first graph..." << std::endl;
+  }
+  graph = make_shared<Graph>(clauses);
+  if(verbosity > 1){
+    std::clog << "**** Number of nodes: " << graph->getNbNodes() << std::endl;
+    std::clog << "**** Number of edges: " << graph->getNbEdges() << std::endl;
+  }
+
+  group = make_shared<Group>();
+  if (verbosity > 0) {
+    std::clog << "*** Detecting symmetry group..." << std::endl;
+  }
+  std::vector<sptr<Permutation> > symgens;
+  graph->getSymmetryGenerators(symgens);
+  for (auto symgen : symgens) {
+    group->add(symgen);
+  }
+}
+
+CNF::CNF( const std::string& filename ) {
   readCNF(filename);
   if (verbosity > 0) {
     std::clog << "*** Creating first graph..." << std::endl;

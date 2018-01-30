@@ -36,13 +36,14 @@ class CNF: public Specification {
 private:
   std::unordered_set<sptr<Clause>, UVecHash, UvecEqual> clauses; // must be an unordered_set, since we need to be able to test whether a clause exists to detect symmetries
 
-  void readCNF(std::string& filename);
+  void readCNF(const std::string& filename);
 
 public:
-  CNF(std::string& filename);
+  CNF( const std::unordered_set<sptr<Clause>, UVecHash, UvecEqual>& _clauses );
+  CNF( const std::string& filename );
   CNF(std::vector<sptr<Clause> >& clss, sptr<Group> grp);
   ~CNF();
-
+  
   void print(std::ostream& out);
   uint getSize();
 

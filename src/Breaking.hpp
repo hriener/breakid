@@ -27,8 +27,10 @@ public:
   ~Breaker() {
   };
 
+  std::vector<std::vector<int>> get_clauses() const;
+
   //Prints the current breaker. Gets the original file as input to recover information lost in the process
-  void print(std::string& origfile);
+  void print( const std::string& origfile );
 
   void addBinClause(uint l1, uint l2);
   void addRegSym(sptr<Permutation> perm, std::vector<uint>& order);

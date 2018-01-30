@@ -8,9 +8,24 @@
 Breaker::Breaker(sptr<Specification> origTheo) : originalTheory(origTheo) {
 }
 
+std::vector<std::vector<int>> Breaker::get_clauses() const
+{
+  std::vector<std::vector<int>> clauses_;
 
-void Breaker::print(std::string& origfile) {
+  for (const auto& c : clauses)
+  {
+    std::vector<int> clause;
+    for (auto lit : c->lits)
+    {
+      clause.push_back( decode( lit ) );
+    }
+    clauses_.push_back( clause );
+  }
+  return clauses_;
+}
 
+void Breaker::print(const std::string& origfile)
+{
   if (not aspinput) {
     std::cout << "c number of breaking clauses added: " << getAddedNbClauses() << "\n";
     std::cout << "c max original variable: " << nVars << "\n";
