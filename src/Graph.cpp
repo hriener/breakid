@@ -224,7 +224,7 @@ Graph::Graph(std::unordered_set<sptr<Rule>, UVecHash, UvecEqual>& rules) {
         neighbours[bodyNode].push_back(lit);
       }
     } else {
-      for(u_int index = 0; index < r->bodyLits.size(); index++) {
+      for(uint index = 0; index < r->bodyLits.size(); index++) {
         auto lit = r->bodyLits[index];
         auto weight = r->weights[index];
         auto extranode = current_node_index;
